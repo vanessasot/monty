@@ -1,6 +1,12 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+/* Static libraries */
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -10,6 +16,7 @@
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO Holberton project
  */
+
 typedef struct stack_s
 {
 	int n;
@@ -25,6 +32,7 @@ typedef struct stack_s
  * Description: opcode and its function
  * for stack, queues, LIFO, FIFO Holberton project
  */
+
 typedef struct instruction_s
 {
 	char *opcode;
