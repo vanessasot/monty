@@ -31,4 +31,8 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+void opcode_print (stack_t *top, int line_num);
+void opcode_swap (stack_t **top, const int line_num);
+
+
 #endif /* MONTY_H */
