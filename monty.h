@@ -44,10 +44,10 @@ typedef struct instruction_s
 void opcode_push(stack_t **top, const int line_num, const int n);
 void opcode_pall(stack_t *top);
 void opcode_pint(stack_t *top, const int line_num);
-void opcode_pop(stack_t **top, const int line_num);
-void opcode_swap(stack_t **top, const int line_num);
-void opcode_add(stack_t **top, const int line_num);
-void opcode_nop(void);
+void opcode_pop(stack_t **top, unsigned int line_num);
+void opcode_swap(stack_t **top, unsigned int line_num);
+void opcode_add(stack_t **top, unsigned int line_num);
+void opcode_nop(stack_t **top, unsigned int line_num);
 
 
 
