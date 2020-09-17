@@ -94,4 +94,32 @@ void opcode_pint (stack_t *top, const int line_num)
 	}	
 }
 
+/**
+ * opcode_swap - swaps the top two elements of the stack
+ * @top: last node in the stack
+ * @line_num: line number
+ * Return: nothing
+ */
 
+void opcode_swap (stack_t **top, const int line_num)
+{
+	stack_t *temp;
+	char buf[2048];
+
+	if (*top && (*top)->prev)
+	{
+		temp = (*top)->prev;
+		(*top)->next = temp;
+		(*top)->prev = temp->prev;
+		temp->prev->next = *top;
+		temp->prev = *top;
+		temp->next = NULL;
+		*top = temp;
+	}
+	else
+	{
+		sprintf(buf, "L%d: can't swap, stack too short\n", line_num);
+		write(STDERR_FILENO, buf, strlen(buf));
+		exit (EXIT_FAILURE);
+	}
+}
