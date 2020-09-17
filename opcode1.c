@@ -1,18 +1,19 @@
 #include "monty.h"
 
 /**
- * opcode_push - Adds a new node at the beginning of a linked list.
- * @stack: Node of the list.
- * @line_number: Element of the node.
- * @n: new node valune.
+ * opcode_push - Adds a new node at the end of a stack.
+ * @top: Node of the list.
+ * @line_num: Line number.
+ * @n: New node valune.
  *
  * Return: Nothing.
  */
 
-void opcode_push(stack_t **stack, unsigned int line_number, const int n)
+void opcode_push(stack_t **top, const int line_num, const int n)
 {
 	stack_t *new = NULL;
-	(void)line_number;
+	char buf[2048];
+	(void)line_num;
 
 	new = malloc(sizeof(stack_t));
 
@@ -20,39 +21,41 @@ void opcode_push(stack_t **stack, unsigned int line_number, const int n)
 	{
 		printf("Error: malloc failed\n");
 		free(new);
-		/**free all*/
 		exit(EXIT_FAILURE);
 	}
 
 	new->next = NULL;
 	new->n = n;
 
-	if (!(*stack))
+	if (!(*top))
 	{
 		new->prev = NULL;
-		*stack = new;
+		*top = new;
 	}
 	else
 	{
-		new->prev = *stack;
-		(*stack)->next = new;
-		*stack = new;
+		new->prev = *top;
+		(*top)->next = new;
+		*top = new;
 	}
 }
 
 /**
- * opcode_pall - Prints all the elements of a linked list.
- * @stack: Node of the list.
+ * opcode_pall - Prints all the elements of a stack.
+ * @top: Node of the list.
  *
  * Return: Nothing.
  */
 
-void opcode_pall(stack_t *stack)
+void opcode_pall(stack_t *top)
 {
-	while (stack)
+	char buf[2048];
+
+	while (top)
 	{
-		printf("%d\n", stack->n);
-		stack = stack->prev;
+		sprintf(buf, "%d\n", top->n);
+		write(STDOUT_FILENO, buf, strlen(buf));
+		top = top->prev;
 	}
 }
 
@@ -83,32 +86,34 @@ void opcode_pint (stack_t *top, const int line_num)
 }
 
 /**
- * opcode_pop - Delete the node at index.
- * @stack: Node of the list.
- * @line_number: Position of the node to eliminate.
+ * opcode_pop - Delete the last element at the stack.
+ * @top: Element of the stack.
+ * @line_num: Line number.
  *
  * Return: Nothing.
  */
 
-void opcode_pop(stack_t **stack)
+void opcode_pop(stack_t **top, const int line_num)
 {
-	stack_t *current = *stack;
+	stack_t *current = *top;
+	char buf[2048];
 
-	if (*stack == NULL)
+	if (*top == NULL)
 	{
-		printf("L: can't pop an empty stack\n");
+		sprintf(buf, "L%d: can't pop an empty stack\n", line_num);
+		write(STDERR_FILENO, buf, strlen(buf));
 		exit(EXIT_FAILURE);
 	}
-	if ((*stack)->prev != NULL)
+	if ((*top)->prev != NULL)
 	{
-		*stack = (*stack)->prev;
-		(*stack)->next = NULL;
+		*top = (*top)->prev;
+		(*top)->next = NULL;
 		free(current);
 	}
 	else
 	{
-		free(*stack);
-		*stack = NULL;
+		free(*top);
+		*top = NULL;
 	}
 }
 
