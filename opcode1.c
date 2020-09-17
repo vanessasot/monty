@@ -72,6 +72,7 @@ void opcode_pall(stack_t **top, unsigned int line_num)
 {
 	char buf[BUF_SIZE];
 	stack_t *temp = *top;
+	(void)line_num;
 
 	while (temp)
 	{
