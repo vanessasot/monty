@@ -69,4 +69,29 @@ void opcode_pall(stack_t **stack)
 	}
 }
 
+/**
+ * opcode_pint - prints the value at the top of the stack,
+ * followed by a new line
+ * @top: last node in the stack
+ * @line_num: line number
+ * Return: nothing
+ */
+
+void opcode_pint (stack_t *top, const int line_num)
+{
+	char buf[2048];
+
+	if (top)
+	{
+		sprintf(buf, "%d\n", top->n);
+		write(STDOUT_FILENO, buf, strlen(buf));
+	}
+	else
+	{
+		sprintf(buf, "L%d: can't pint, stack empty\n", line_num);
+		write(STDERR_FILENO, buf, strlen(buf));
+		exit (EXIT_FAILURE);
+	}	
+}
+
 
