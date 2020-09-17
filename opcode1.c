@@ -1,9 +1,10 @@
 #include "monty.h"
 
 /**
- * push - Adds a new node at the beginning of a linked list.
+ * opcode_push - Adds a new node at the beginning of a linked list.
  * @stack: Node of the list.
  * @line_number: Element of the node.
+ * @n: new node valune.
  *
  * Return: Nothing.
  */
@@ -20,7 +21,7 @@ void opcode_push(stack_t **stack, unsigned int line_number, const int n)
 		printf("Error: malloc failed\n");
 		free(new);
 		/**free all*/
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
 	new->next = NULL;
@@ -40,32 +41,44 @@ void opcode_push(stack_t **stack, unsigned int line_number, const int n)
 }
 
 /**
- * pall - Prints all the elements of a linked list.
+ * opcode_pall - Prints all the elements of a linked list.
  * @stack: Node of the list.
- * @line_number: Line number of the file.
  *
  * Return: Nothing.
  */
 
-void opcode_pall(stack_t **stack)
+void opcode_pall(stack_t *stack)
 {
-	int number;
-	stack_t *aux = *stack;
-
-	if (*stack == NULL)
-		return;
-
-	for (number = 0; aux != NULL; number++)
+	while (stack)
 	{
-		if (aux == NULL)
-		{
-			return;
-		}
-		else
-		{
-			printf("%d\n", aux->n);
-		}
-		aux = aux->prev;
+		printf("%d\n", stack->n);
+		stack = stack->prev;
+	}
+}
+
+/**
+ * opcode_pint - prints the value at the top of the stack,
+ * followed by a new line
+ * @top: last node in the stack
+ * @line_num: line number
+ *
+ * Return: nothing
+ */
+
+void opcode_pint (stack_t *top, const int line_num)
+{
+	char buf[2048];
+
+	if (top)
+	{
+		sprintf(buf, "%d\n", top->n);
+		write(STDOUT_FILENO, buf, strlen(buf));
+	}
+	else
+	{
+		sprintf(buf, "L%d: can't pint, stack empty\n", line_num);
+		write(STDERR_FILENO, buf, strlen(buf));
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -86,19 +99,46 @@ void opcode_pop(stack_t **stack)
 		printf("L: can't pop an empty stack\n");
 		exit(EXIT_FAILURE);
 	}
-	while (current->next != NULL)
+	if ((*stack)->prev != NULL)
 	{
-		current->prev = current;
-		current = current->next;
+		*stack = (*stack)->prev;
+		(*stack)->next = NULL;
+		free(current);
 	}
-	if (current == *stack)
-		*stack = NULL;
 	else
-		current->prev->next = NULL;
-	
-	/** *stack = current->next; */
-	free(current);
-	current = NULL;
+	{
+		free(*stack);
+		*stack = NULL;
+	}
 }
 
+/**
+ * opcode_swap - swaps the top two elements of the stack
+ * @top: last node in the stack
+ * @line_num: line number
+ *
+ * Return: nothing
+ */
 
+void opcode_swap(stack_t **top, const int line_num)
+{
+	stack_t *temp;
+	char buf[2048];
+
+	if (*top && (*top)->prev)
+	{
+		temp = (*top)->prev;
+		(*top)->next = temp;
+		(*top)->prev = temp->prev;
+		temp->prev->next = *top;
+		temp->prev = *top;
+		temp->next = NULL;
+		*top = temp;
+	}
+	else
+	{
+		sprintf(buf, "L%d: can't swap, stack too short\n", line_num);
+		write(STDERR_FILENO, buf, strlen(buf));
+		exit(EXIT_FAILURE);
+	}
+}
