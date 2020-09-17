@@ -69,4 +69,36 @@ void opcode_pall(stack_t **stack)
 	}
 }
 
+/**
+ * opcode_pop - Delete the node at index.
+ * @stack: Node of the list.
+ * @line_number: Position of the node to eliminate.
+ *
+ * Return: Nothing.
+ */
+
+void opcode_pop(stack_t **stack)
+{
+	stack_t *current = *stack;
+
+	if (*stack == NULL)
+	{
+		printf("L: can't pop an empty stack\n");
+		exit(EXIT_FAILURE);
+	}
+	while (current->next != NULL)
+	{
+		current->prev = current;
+		current = current->next;
+	}
+	if (current == *stack)
+		*stack = NULL;
+	else
+		current->prev->next = NULL;
+	
+	/** *stack = current->next; */
+	free(current);
+	current = NULL;
+}
+
 
