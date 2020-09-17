@@ -15,16 +15,11 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	int n;
 
 	new = malloc(sizeof(stack_t));
-
 	if (!new)
 	{
-		sprintf(buf, "Error: malloc failed\n");
-		write(STDERR_FILENO, buf, strlen(buf));
-		/**
-		* Implementar free_stack
-		* free_stack(*top);
-		* top = NULL;
-		*/
+		dprintf(STDERR_FILENO, "Error: malloc failed\n");
+		free_stack(*top);
+		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
 
@@ -37,13 +32,10 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	}
 	else
 	{
-		sprintf(buf, "L%d: usage: push integer\n", line_num);
-		write(STDERR_FILENO, buf, strlen(buf));
-		/**
-		* Implementar free_stack
-		* free_stack(*top);
-		* top = NULL;
-		*/
+		dprintf(STDERR_FILENO, "L%d: usage: push integer\n",
+			line_num);
+		free_stack(*top);
+		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
 
@@ -70,14 +62,12 @@ void opcode_push(stack_t **top, unsigned int line_num)
 
 void opcode_pall(stack_t **top, unsigned int line_num)
 {
-	char buf[BUF_SIZE];
 	stack_t *temp = *top;
 	(void)line_num;
 
 	while (temp)
 	{
-		sprintf(buf, "%d\n", temp->n);
-		write(STDOUT_FILENO, buf, strlen(buf));
+		dprintf(STDOUT_FILENO, "%d\n", temp->n);
 		temp = temp->prev;
 	}
 }
@@ -93,22 +83,16 @@ void opcode_pall(stack_t **top, unsigned int line_num)
 
 void opcode_pint (stack_t **top, unsigned int line_num)
 {
-	char buf[BUF_SIZE];
-
 	if (*top)
 	{
-		sprintf(buf, "%d\n", (*top)->n);
-		write(STDOUT_FILENO, buf, strlen(buf));
+		dprintf(STDOUT_FILENO, "%d\n", (*top)->n);
 	}
 	else
 	{
-		sprintf(buf, "L%d: can't pint, stack empty\n", line_num);
-		write(STDERR_FILENO, buf, strlen(buf));
-		/**
-		* Implementar free_stack
-		* free_stack(*top);
-		* top = NULL;
-		*/
+		dprintf(STDERR_FILENO, "L%d: can't pint, stack empty\n",
+			line_num);
+		free_stack(*top);
+		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -124,17 +108,13 @@ void opcode_pint (stack_t **top, unsigned int line_num)
 void opcode_pop(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp = *top;
-	char buf[BUF_SIZE];
 
 	if (!*top)
 	{
-		sprintf(buf, "L%d: can't pop an empty stack\n", line_num);
-		write(STDERR_FILENO, buf, strlen(buf));
-		/**
-		* Implementar free_stack
-		* free_stack(*top);
-		* top = NULL;
-		*/
+		dprintf(STDERR_FILENO, "L%d: can't pop an empty stack\n",
+			line_num);
+		free_stack(*top);
+		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
 	if ((*top)->prev)
@@ -162,7 +142,6 @@ void opcode_pop(stack_t **top, unsigned int line_num)
 void opcode_swap(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp;
-	char buf[BUF_SIZE];
 
 	if (*top && (*top)->prev)
 	{
@@ -176,13 +155,10 @@ void opcode_swap(stack_t **top, unsigned int line_num)
 	}
 	else
 	{
-		sprintf(buf, "L%d: can't swap, stack too short\n", line_num);
-		write(STDERR_FILENO, buf, strlen(buf));
-		/**
-		* Implementar free_stack
-		* free_stack(*top);
-		* top = NULL;
-		*/
+		dprintf(STDERR_FILENO, "L%d: can't swap, stack too short\n",
+			line_num);
+		free_stack(*top);
+		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
 }
