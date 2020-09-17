@@ -22,6 +22,7 @@ push 4
     push 5    
       push    6        
 
+pall This is the end of our program. Monty is awesome!
 nop
 push 1
 push 2

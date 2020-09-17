@@ -1,12 +1,21 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+
 /* Static libraries */
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+
+/* Macros */
+
+#define BUF_SIZE 2048
+
+
+/* Definitions */
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -41,14 +50,15 @@ typedef struct instruction_s
 } instruction_t;
 
 
-void opcode_push(stack_t **top, const int line_num, const int n);
-void opcode_pall(stack_t *top);
-void opcode_pint(stack_t *top, const int line_num);
+/* Prototypes */
+
+void opcode_push(stack_t **top, unsigned int line_num);
+void opcode_pall(stack_t **top, unsigned int line_num);
+void opcode_pint(stack_t **top, unsigned int line_num);
 void opcode_pop(stack_t **top, unsigned int line_num);
 void opcode_swap(stack_t **top, unsigned int line_num);
 void opcode_add(stack_t **top, unsigned int line_num);
 void opcode_nop(stack_t **top, unsigned int line_num);
-
 
 
 #endif /* MONTY_H */
