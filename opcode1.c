@@ -42,30 +42,16 @@ void opcode_push(stack_t **stack, unsigned int line_number, const int n)
 /**
  * pall - Prints all the elements of a linked list.
  * @stack: Node of the list.
- * @line_number: Line number of the file.
  *
  * Return: Nothing.
  */
 
-void opcode_pall(stack_t **stack)
+void opcode_pall(stack_t *stack)
 {
-	int number;
-	stack_t *aux = *stack;
-
-	if (*stack == NULL)
-		return;
-
-	for (number = 0; aux != NULL; number++)
+	while (stack)
 	{
-		if (aux == NULL)
-		{
-			return;
-		}
-		else
-		{
-			printf("%d\n", aux->n);
-		}
-		aux = aux->prev;
+		printf("%d\n", stack->n);
+		stack = stack->prev;
 	}
 }
 
@@ -74,6 +60,7 @@ void opcode_pall(stack_t **stack)
  * followed by a new line
  * @top: last node in the stack
  * @line_num: line number
+ *
  * Return: nothing
  */
 
@@ -98,6 +85,7 @@ void opcode_pint (stack_t *top, const int line_num)
  * opcode_swap - swaps the top two elements of the stack
  * @top: last node in the stack
  * @line_num: line number
+ *
  * Return: nothing
  */
 
@@ -126,6 +114,7 @@ void opcode_swap (stack_t **top, const int line_num)
 
 /**
  * opcode_nop - doesn’t do anything
+ *
  * Return: nothing
  */
 
