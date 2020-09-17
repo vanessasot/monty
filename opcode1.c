@@ -123,3 +123,11 @@ void opcode_swap (stack_t **top, const int line_num)
 		exit (EXIT_FAILURE);
 	}
 }
+
+/**
+ * opcode_nop - doesn’t do anything
+ * Return: nothing
+ */
+
+void opcode_nop (void)
+{}
