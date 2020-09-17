@@ -2,7 +2,7 @@
 
 /**
  * opcode_add - adds the top two elements of the stack
- * @top: top in the stack
+ * @top: top node in the stack
  * @line_num: line number
  *
  * Description: The result is stored in the second top element of the stack,
@@ -10,7 +10,7 @@
  * Return: Nothing
  */
 
-void opcode_add(stack_t **top, const int line_num)
+void opcode_add(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp = *top;
 	char buf[2048];
@@ -19,6 +19,7 @@ void opcode_add(stack_t **top, const int line_num)
 	{
 		(*top)->prev->n += (*top)->n;
 		*top = (*top)->prev;
+		(*top)->next = NULL;
 		free(temp);
 	}
 	else
@@ -35,7 +36,9 @@ void opcode_add(stack_t **top, const int line_num)
  * Return: nothing
  */
 
-void opcode_nop(void)
+void opcode_nop(stack_t **top, unsigned int line_num)
 {
+	(void)*top;
+	(void)line_num;
 	printf("NOP\n");
 }

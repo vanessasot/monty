@@ -120,7 +120,7 @@ void opcode_pop(stack_t **stack)
  * Return: nothing
  */
 
-void opcode_swap(stack_t **top, const int line_num)
+void opcode_swap(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp;
 	char buf[2048];
