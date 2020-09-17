@@ -1,33 +1,47 @@
 #include "monty.h"
 
 /**
- * opcode_push - Adds a new node at the end of a stack.
- * @top: Node of the list.
- * @line_num: Line number.
- * @n: New node valune.
+ * opcode_push - adds a new node at the end of a stack
+ * @top: last node in the stack
+ * @line_num: line number
  *
- * Return: Nothing.
+ * Return: nothing
  */
 
-void opcode_push(stack_t **top, const int line_num, const int n)
+void opcode_push(stack_t **top, unsigned int line_num)
 {
-	stack_t *new = NULL;
-	char buf[2048];
-	(void)line_num;
+	stack_t *new;
+	char buf[BUF_SIZE];
+	int n;
 
 	new = malloc(sizeof(stack_t));
 
-	if (new == NULL)
+	if (!new)
 	{
-		printf("Error: malloc failed\n");
-		free(new);
+		sprintf(buf, "Error: malloc failed\n");
+		write(STDERR_FILENO, buf, strlen(buf));
+		/* free_stack(*top);  Implementar free_stack 
+		*top = NULL; */
 		exit(EXIT_FAILURE);
 	}
 
 	new->next = NULL;
-	new->n = n;
+	sprintf(buf, "%s", get_argument(line_num));
+	if (is_int(buf))
+	{
+		n = atoi(buf);
+		new->n = n;
+	}
+	else
+	{
+		sprintf(buf, "L%d: usage: push integer\n", line_num);
+		write(STDERR_FILENO, buf, strlen(buf));
+		/* free_stack(*top);  Implementar free_stack 
+		*top = NULL; */
+		exit(EXIT_FAILURE);
+	}
 
-	if (!(*top))
+	if (!*top)
 	{
 		new->prev = NULL;
 		*top = new;
@@ -41,21 +55,23 @@ void opcode_push(stack_t **top, const int line_num, const int n)
 }
 
 /**
- * opcode_pall - Prints all the elements of a stack.
- * @top: Node of the list.
+ * opcode_pall - prints all the elements of a stack
+ * @top: last node in the list
+ * @line_num: line number
  *
  * Return: Nothing.
  */
 
-void opcode_pall(stack_t *top)
+void opcode_pall(stack_t **top, unsigned int line_num)
 {
-	char buf[2048];
+	char buf[BUF_SIZE];
+	stack_t *temp = *top;
 
-	while (top)
+	while (temp)
 	{
-		sprintf(buf, "%d\n", top->n);
+		sprintf(buf, "%d\n", temp->n);
 		write(STDOUT_FILENO, buf, strlen(buf));
-		top = top->prev;
+		temp = temp->prev;
 	}
 }
 
@@ -68,47 +84,52 @@ void opcode_pall(stack_t *top)
  * Return: nothing
  */
 
-void opcode_pint (stack_t *top, const int line_num)
+void opcode_pint (stack_t **top, unsigned int line_num)
 {
-	char buf[2048];
+	char buf[BUF_SIZE];
 
-	if (top)
+	if (*top)
 	{
-		sprintf(buf, "%d\n", top->n);
+		sprintf(buf, "%d\n", (*top)->n);
 		write(STDOUT_FILENO, buf, strlen(buf));
 	}
 	else
 	{
 		sprintf(buf, "L%d: can't pint, stack empty\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
+		/* free_stack(*top);  Implementar free_stack 
+		*top = NULL; */
 		exit(EXIT_FAILURE);
 	}
 }
 
 /**
- * opcode_pop - Delete the last element at the stack.
- * @top: Element of the stack.
- * @line_num: Line number.
+ * opcode_pop - delete the last element at the stack
+ * @top: last node in the stack.
+ * @line_num: line number
  *
- * Return: Nothing.
+ * Return: nothing
  */
 
-void opcode_pop(stack_t **top, const int line_num)
+void opcode_pop(stack_t **top, unsigned int line_num)
 {
-	stack_t *current = *top;
-	char buf[2048];
+	stack_t *temp = *top;
+	char buf[BUF_SIZE];
 
-	if (*top == NULL)
+	if (!*top)
 	{
 		sprintf(buf, "L%d: can't pop an empty stack\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
+		/* free_stack(*top);  Implementar free_stack 
+		*top = NULL; */
 		exit(EXIT_FAILURE);
 	}
-	if ((*top)->prev != NULL)
+	if ((*top)->prev)
 	{
 		*top = (*top)->prev;
 		(*top)->next = NULL;
-		free(current);
+		free(temp);
+		temp = NULL;
 	}
 	else
 	{
@@ -128,7 +149,7 @@ void opcode_pop(stack_t **top, const int line_num)
 void opcode_swap(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp;
-	char buf[2048];
+	char buf[BUF_SIZE];
 
 	if (*top && (*top)->prev)
 	{
@@ -144,6 +165,8 @@ void opcode_swap(stack_t **top, unsigned int line_num)
 	{
 		sprintf(buf, "L%d: can't swap, stack too short\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
+		/* free_stack(*top);  Implementar free_stack 
+		*top = NULL; */
 		exit(EXIT_FAILURE);
 	}
 }

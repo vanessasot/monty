@@ -5,15 +5,15 @@
  * @top: top node in the stack
  * @line_num: line number
  *
- * Description: The result is stored in the second top element of the stack,
+ * Description: the result is stored in the second top element of the stack,
  * and the top element is removed
- * Return: Nothing
+ * Return: nothing
  */
 
 void opcode_add(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp = *top;
-	char buf[2048];
+	char buf[BUF_SIZE];
 
 	if (*top && (*top)->prev)
 	{
@@ -26,6 +26,8 @@ void opcode_add(stack_t **top, unsigned int line_num)
 	{
 		sprintf(buf, "L%d: can't add, stack too short\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
+		/* free_stack(*top);  Implementar free_stack 
+		*top = NULL; */
 		exit(EXIT_FAILURE);
 	}
 }
