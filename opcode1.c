@@ -1,9 +1,10 @@
 #include "monty.h"
 
 /**
- * push - Adds a new node at the beginning of a linked list.
+ * opcode_push - Adds a new node at the beginning of a linked list.
  * @stack: Node of the list.
  * @line_number: Element of the node.
+ * @n: new node valune.
  *
  * Return: Nothing.
  */
@@ -20,7 +21,7 @@ void opcode_push(stack_t **stack, unsigned int line_number, const int n)
 		printf("Error: malloc failed\n");
 		free(new);
 		/**free all*/
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
 	new->next = NULL;
@@ -40,7 +41,7 @@ void opcode_push(stack_t **stack, unsigned int line_number, const int n)
 }
 
 /**
- * pall - Prints all the elements of a linked list.
+ * opcode_pall - Prints all the elements of a linked list.
  * @stack: Node of the list.
  *
  * Return: Nothing.
@@ -77,8 +78,8 @@ void opcode_pint (stack_t *top, const int line_num)
 	{
 		sprintf(buf, "L%d: can't pint, stack empty\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
-		exit (EXIT_FAILURE);
-	}	
+		exit(EXIT_FAILURE);
+	}
 }
 
 /**
@@ -89,7 +90,7 @@ void opcode_pint (stack_t *top, const int line_num)
  * Return: nothing
  */
 
-void opcode_swap (stack_t **top, const int line_num)
+void opcode_swap(stack_t **top, const int line_num)
 {
 	stack_t *temp;
 	char buf[2048];
@@ -108,6 +109,6 @@ void opcode_swap (stack_t **top, const int line_num)
 	{
 		sprintf(buf, "L%d: can't swap, stack too short\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 }
