@@ -83,6 +83,36 @@ void opcode_pint (stack_t *top, const int line_num)
 }
 
 /**
+ * opcode_pop - Delete the node at index.
+ * @stack: Node of the list.
+ * @line_number: Position of the node to eliminate.
+ *
+ * Return: Nothing.
+ */
+
+void opcode_pop(stack_t **stack)
+{
+	stack_t *current = *stack;
+
+	if (*stack == NULL)
+	{
+		printf("L: can't pop an empty stack\n");
+		exit(EXIT_FAILURE);
+	}
+	if ((*stack)->prev != NULL)
+	{
+		*stack = (*stack)->prev;
+		(*stack)->next = NULL;
+		free(current);
+	}
+	else
+	{
+		free(*stack);
+		*stack = NULL;
+	}
+}
+
+/**
  * opcode_swap - swaps the top two elements of the stack
  * @top: last node in the stack
  * @line_num: line number
