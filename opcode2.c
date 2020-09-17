@@ -26,14 +26,19 @@ void opcode_add(stack_t **top, unsigned int line_num)
 	{
 		sprintf(buf, "L%d: can't add, stack too short\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
-		/* free_stack(*top);  Implementar free_stack 
-		*top = NULL; */
+		/**
+		* Implementar free_stack
+		* free_stack(*top);
+		* top = NULL;
+		*/
 		exit(EXIT_FAILURE);
 	}
 }
 
 /**
  * opcode_nop - doesn’t do anything
+ * @top: top node in the stack
+ * @line_num: line number
  *
  * Return: nothing
  */

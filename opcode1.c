@@ -20,8 +20,11 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	{
 		sprintf(buf, "Error: malloc failed\n");
 		write(STDERR_FILENO, buf, strlen(buf));
-		/* free_stack(*top);  Implementar free_stack 
-		*top = NULL; */
+		/**
+		* Implementar free_stack
+		* free_stack(*top);
+		* top = NULL;
+		*/
 		exit(EXIT_FAILURE);
 	}
 
@@ -36,8 +39,11 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	{
 		sprintf(buf, "L%d: usage: push integer\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
-		/* free_stack(*top);  Implementar free_stack 
-		*top = NULL; */
+		/**
+		* Implementar free_stack
+		* free_stack(*top);
+		* top = NULL;
+		*/
 		exit(EXIT_FAILURE);
 	}
 
@@ -97,8 +103,11 @@ void opcode_pint (stack_t **top, unsigned int line_num)
 	{
 		sprintf(buf, "L%d: can't pint, stack empty\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
-		/* free_stack(*top);  Implementar free_stack 
-		*top = NULL; */
+		/**
+		* Implementar free_stack
+		* free_stack(*top);
+		* top = NULL;
+		*/
 		exit(EXIT_FAILURE);
 	}
 }
@@ -120,8 +129,11 @@ void opcode_pop(stack_t **top, unsigned int line_num)
 	{
 		sprintf(buf, "L%d: can't pop an empty stack\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
-		/* free_stack(*top);  Implementar free_stack 
-		*top = NULL; */
+		/**
+		* Implementar free_stack
+		* free_stack(*top);
+		* top = NULL;
+		*/
 		exit(EXIT_FAILURE);
 	}
 	if ((*top)->prev)
@@ -165,8 +177,11 @@ void opcode_swap(stack_t **top, unsigned int line_num)
 	{
 		sprintf(buf, "L%d: can't swap, stack too short\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
-		/* free_stack(*top);  Implementar free_stack 
-		*top = NULL; */
+		/**
+		* Implementar free_stack
+		* free_stack(*top);
+		* top = NULL;
+		*/
 		exit(EXIT_FAILURE);
 	}
 }
