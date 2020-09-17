@@ -13,7 +13,6 @@
 void opcode_add(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp = *top;
-	char buf[BUF_SIZE];
 
 	if (*top && (*top)->prev)
 	{
@@ -24,13 +23,10 @@ void opcode_add(stack_t **top, unsigned int line_num)
 	}
 	else
 	{
-		sprintf(buf, "L%d: can't add, stack too short\n", line_num);
-		write(STDERR_FILENO, buf, strlen(buf));
-		/**
-		* Implementar free_stack
-		* free_stack(*top);
-		* top = NULL;
-		*/
+		dprintf(STDERR_FILENO, "L%d: can't add, stack too short\n",
+			line_num);
+		free_stack(*top);
+		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
 }
