@@ -10,7 +10,7 @@
  * Return: Nothing
  */
 
-void opcode_add (stack_t **top, const int line_num)
+void opcode_add(stack_t **top, const int line_num)
 {
 	stack_t *temp = *top;
 	char buf[2048];
@@ -25,7 +25,7 @@ void opcode_add (stack_t **top, const int line_num)
 	{
 		sprintf(buf, "L%d: can't add, stack too short\n", line_num);
 		write(STDERR_FILENO, buf, strlen(buf));
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -35,7 +35,7 @@ void opcode_add (stack_t **top, const int line_num)
  * Return: nothing
  */
 
-void opcode_nop (void)
+void opcode_nop(void)
 {
 	printf("NOP\n");
 }
