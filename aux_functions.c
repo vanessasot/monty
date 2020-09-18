@@ -21,10 +21,6 @@ ssize_t read_file(const char *filename)
 	return (fd);
 }
 
-char *separate_string()
-{
-}
-
 /**
  * free_stack - frees the stack
  * @top: last node in the stack
