@@ -53,24 +53,25 @@ void free_stack(stack_t *top)
 
 int is_int(char *str)
 {
-	char *alpha = {'0', '1', '2', '3', '4',
+	char *numbers = {'0', '1', '2', '3', '4',
 			'5', '6', '7', '8', '9'};
 
-	size_t i_alpha, i_str;
-	int is_alpha;
+	size_t i_num, i_str;
+	int is_number;
 
 	for (i_str = 0; i_str < strlen(str); i_str++)
 	{
-		is_alpha = 0;
-		for (i_alpha = 0; i_alpha < 10; i_alpha++)
+		is_number = 0;
+		for (i_num = 0; i_num < 10; i_num++)
 		{
-			if (str[i_str] == alpha[i_alpha] || str[0] == '-')
+			if (str[i_str] == numbers[i_num] ||
+				(i_str == 0 && str[i_str] == '-'))
 			{
-				is_alpha = 1;
+				is_number = 1;
 				break;
 			}
 		}
-		if (is_alpha == 0)
+		if (is_number == 0)
 			return (0);
 	}
 	return (1);
