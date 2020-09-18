@@ -4,8 +4,7 @@ int main(int ac, char **av)
 {
 	stack_t *top;
 	unsigned int line_num = 1;
-	char *line = NULL;
-	char *arg = NULL;
+	char *line = NULL, *arg = NULL;
 	size_t len = 0;
 	int i;
 	FILE *fd;

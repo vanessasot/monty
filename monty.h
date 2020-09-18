@@ -42,6 +42,7 @@ typedef struct args_s
 {
 	char *push;
 } args_t;
+
 extern args_t args;
 
 /**
@@ -70,5 +71,8 @@ void opcode_add(stack_t **top, unsigned int line_num);
 void opcode_nop(stack_t **top, unsigned int line_num);
 void (*get_op_function(int line_n))(stack_t **top, unsigned int line_num);
 FILE *read_file(const char *filename);
+void free_stack(stack_t *top);
+int is_int(char *str);
+char *get_args(char *str);
 
 #endif /* MONTY_H */
