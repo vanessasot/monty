@@ -1,7 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-
 /* Static libraries */
 
 #include <stdio.h>
@@ -9,11 +8,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-
 /* Macros */
 
 #define BUF_SIZE 2048
-
 
 /* Definitions */
 
@@ -49,7 +46,6 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-
 /* Prototypes */
 
 void opcode_push(stack_t **top, unsigned int line_num);
@@ -60,6 +56,6 @@ void opcode_swap(stack_t **top, unsigned int line_num);
 void opcode_add(stack_t **top, unsigned int line_num);
 void opcode_nop(stack_t **top, unsigned int line_num);
 void (*get_op_function(int line_n))(stack_t **top, unsigned int line_num);
-ssize_t read_file(const char *filename);
+FILE *read_file(const char *filename);
 
 #endif /* MONTY_H */
