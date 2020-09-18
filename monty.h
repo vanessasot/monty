@@ -35,6 +35,19 @@ typedef struct stack_s
 } stack_t;
 
 /**
+ * struct args_s - singly linked list
+ * @push: pointer that stores what the user writes
+ *
+ * Description: This structure give us input arguments
+ * to create processes -
+ */
+typedef struct args_s
+{
+	char *push;
+} args_t;
+extern args_t args;
+
+/**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
