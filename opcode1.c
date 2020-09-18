@@ -11,7 +11,6 @@
 void opcode_push(stack_t **top, unsigned int line_num)
 {
 	stack_t *new;
-	char buf[BUF_SIZE];
 	int n;
 
 	new = malloc(sizeof(stack_t));
@@ -24,10 +23,10 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	}
 
 	new->next = NULL;
-	sprintf(buf, "%s", get_argument(line_num));
-	if (is_int(buf))
+
+	if (is_int(args.push))
 	{
-		n = atoi(buf);
+		n = atoi(args.push);
 		new->n = n;
 	}
 	else
@@ -81,7 +80,7 @@ void opcode_pall(stack_t **top, unsigned int line_num)
  * Return: nothing
  */
 
-void opcode_pint (stack_t **top, unsigned int line_num)
+void opcode_pint(stack_t **top, unsigned int line_num)
 {
 	if (*top)
 	{

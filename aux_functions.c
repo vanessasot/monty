@@ -7,7 +7,7 @@
  *Return: Number of letters.
  */
 
-ssize_t read_file(const char *filename)
+FILE *read_file(const char *filename)
 {
 	FILE *fd;
 
@@ -49,11 +49,13 @@ void free_stack(stack_t *top)
 
 int is_int(char *str)
 {
-	char *numbers = {'0', '1', '2', '3', '4',
-			'5', '6', '7', '8', '9'};
+	char *numbers = {"0123456789"};
 
 	size_t i_num, i_str;
 	int is_number;
+
+	if (str == NULL)
+		return (0);
 
 	for (i_str = 0; i_str < strlen(str); i_str++)
 	{
@@ -61,7 +63,7 @@ int is_int(char *str)
 		for (i_num = 0; i_num < 10; i_num++)
 		{
 			if (str[i_str] == numbers[i_num] ||
-				(i_str == 0 && str[i_str] == '-'))
+			    (i_str == 0 && str[i_str] == '-'))
 			{
 				is_number = 1;
 				break;
@@ -71,4 +73,20 @@ int is_int(char *str)
 			return (0);
 	}
 	return (1);
+}
+
+/**
+ * get_args - get tokens from read line
+ * @str: string to get tokens from
+ *
+ * Return: token
+ */
+char *get_args(char *str)
+{
+	char *op;
+
+	op = strtok(str, " \t\n");
+	if (strcmp(op, "push") == 0)
+		args.push = strtok(NULL, " \t\n");
+	return (op);
 }
