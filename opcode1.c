@@ -11,31 +11,28 @@
 void opcode_push(stack_t **top, unsigned int line_num)
 {
 	stack_t *new;
-	int n;
 
 	new = malloc(sizeof(stack_t));
 	if (!new)
 	{
-		dprintf(STDERR_FILENO, "Error: malloc failed\n");
-		free_stack();
 		free(new);
-		*top = NULL;
+		new = NULL;
+		free_stack(args.top);
+		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
 	new->next = NULL;
-
 	if (is_int(args.push))
 	{
-		n = atoi(args.push);
-		new->n = n;
+		new->n = atoi(args.push);
 	}
 	else
 	{
-		dprintf(STDERR_FILENO, "L%d: usage: push integer\n",
-			line_num);
-		free_stack();
-		*top = NULL;
+		free(new);
+		new = NULL;
+		free_stack(args.top);
+		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line_num);
 		exit(EXIT_FAILURE);
 	}
 
@@ -43,13 +40,14 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	{
 		new->prev = NULL;
 		*top = new;
-		args.head = top;
+		args.top = new;
 	}
 	else
 	{
 		new->prev = *top;
 		(*top)->next = new;
 		*top = new;
+		args.top = new;
 	}
 }
 
@@ -90,10 +88,9 @@ void opcode_pint(stack_t **top, unsigned int line_num)
 	}
 	else
 	{
+		free_stack(args.top);
 		dprintf(STDERR_FILENO, "L%d: can't pint, stack empty\n",
 			line_num);
-		free_stack();
-		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -112,22 +109,23 @@ void opcode_pop(stack_t **top, unsigned int line_num)
 
 	if (!*top)
 	{
+		free_stack(args.top);
 		dprintf(STDERR_FILENO, "L%d: can't pop an empty stack\n",
 			line_num);
-		free_stack();
-		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
+
 	if ((*top)->prev)
 	{
 		*top = (*top)->prev;
 		(*top)->next = NULL;
 		free(temp);
 		temp = NULL;
+		args.top = *top;
 	}
 	else
 	{
-		free(*top);
+		free_stack(args.top);
 		*top = NULL;
 	}
 }
@@ -153,13 +151,13 @@ void opcode_swap(stack_t **top, unsigned int line_num)
 		temp->prev = *top;
 		temp->next = NULL;
 		*top = temp;
+		args.top = temp;
 	}
 	else
 	{
+		free_stack(args.top);
 		dprintf(STDERR_FILENO, "L%d: can't swap, stack too short\n",
 			line_num);
-		free_stack();
-		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
 }

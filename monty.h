@@ -32,16 +32,17 @@ typedef struct stack_s
 } stack_t;
 
 /**
- * struct args_s - singly linked list
- * @push: pointer that stores what the user writes
+ * struct args_s - shareable arguments of the stack
+ * @push: token to push into the stack
+ * @top: last node in the stack
  *
- * Description: This structure give us input arguments
- * to create processes -
+ * Description: shareable arguments of the stack
+ * for functions to use
  */
 typedef struct args_s
 {
 	char *push;
-	stack_t *head;
+	stack_t *top;
 } args_t;
 
 extern args_t args;
@@ -70,9 +71,9 @@ void opcode_pop(stack_t **top, unsigned int line_num);
 void opcode_swap(stack_t **top, unsigned int line_num);
 void opcode_add(stack_t **top, unsigned int line_num);
 void opcode_nop(stack_t **top, unsigned int line_num);
-void (*get_op_function(char *str, unsigned int line_num))(stack_t **top, unsigned int line_num);
-FILE *read_file(const char *filename);
-void free_stack(void);
+void (*get_op(char *s, unsigned int l))(stack_t **top, unsigned int line_num);
+FILE *read_file(char *file_name);
+void free_stack(stack_t *head);
 int is_int(char *str);
 char *get_args(char *str);
 

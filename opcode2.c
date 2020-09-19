@@ -19,14 +19,14 @@ void opcode_add(stack_t **top, unsigned int line_num)
 		(*top)->prev->n += (*top)->n;
 		*top = (*top)->prev;
 		(*top)->next = NULL;
+		args.top = *top;
 		free(temp);
 	}
 	else
 	{
 		dprintf(STDERR_FILENO, "L%d: can't add, stack too short\n",
 			line_num);
-		free_stack();
-		*top = NULL;
+		free_stack(args.top);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -41,7 +41,6 @@ void opcode_add(stack_t **top, unsigned int line_num)
 
 void opcode_nop(stack_t **top, unsigned int line_num)
 {
-	(void)*top;
-	(void)line_num;
-	printf("NOP\n");
+	(void) *top;
+	(void) line_num;
 }
