@@ -29,6 +29,6 @@ void (*get_op_function(char *str, unsigned int line_num))(stack_t **top, unsigne
 		index_op++;
 	}
 	dprintf(STDERR_FILENO, "L%d: unknown instruction\n", line_num);
-	free_stack(str);
+	free_stack();
 	exit(EXIT_FAILURE);
 }
