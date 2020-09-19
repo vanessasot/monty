@@ -41,6 +41,7 @@ typedef struct stack_s
 typedef struct args_s
 {
 	char *push;
+	stack_t *head;
 } args_t;
 
 extern args_t args;
@@ -69,7 +70,7 @@ void opcode_pop(stack_t **top, unsigned int line_num);
 void opcode_swap(stack_t **top, unsigned int line_num);
 void opcode_add(stack_t **top, unsigned int line_num);
 void opcode_nop(stack_t **top, unsigned int line_num);
-void (*get_op_function(int line_n))(stack_t **top, unsigned int line_num);
+void (*get_op_function(char *str, unsigned int line_num))(stack_t **top, unsigned int line_num);
 FILE *read_file(const char *filename);
 void free_stack(stack_t *top);
 int is_int(char *str);

@@ -7,7 +7,7 @@
  * Return: 0 (success).
  */
 
-void (*get_op_function(int line_n))(stack_t **top, unsigned int line_num)
+void (*get_op_function(char *str, unsigned int line_num))(stack_t **top, unsigned int line_num)
 {
 	instruction_t opcodes[] = {
 	    {"push", opcode_push},
@@ -22,13 +22,13 @@ void (*get_op_function(int line_n))(stack_t **top, unsigned int line_num)
 
 	while (opcodes[index_op].opcode)
 	{
-		if (opcodes[index_op].opcode)
+		if (strcmp(opcodes[index_op].opcode, str) == 0)
 		{
 			return (opcodes[index_op].f);
 		}
 		index_op++;
 	}
-	dprintf(STDERR_FILENO, "L%d: unknown instruction\n", line_n);
-	free_stack();
+	dprintf(STDERR_FILENO, "L%d: unknown instruction\n", line_num);
+	free_stack(str);
 	exit(EXIT_FAILURE);
 }
