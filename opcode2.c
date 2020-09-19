@@ -25,7 +25,7 @@ void opcode_add(stack_t **top, unsigned int line_num)
 	{
 		dprintf(STDERR_FILENO, "L%d: can't add, stack too short\n",
 			line_num);
-		free_stack(*top);
+		free_stack();
 		*top = NULL;
 		exit(EXIT_FAILURE);
 	}

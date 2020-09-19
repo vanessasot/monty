@@ -19,7 +19,7 @@ int main(int ac, char **av)
 	}
 
 	fd = read_file(*av[1]);
-	
+
 	while (getline(&line, &len, fd) != EOF)
 	{
 		arg = get_args(line);
@@ -27,6 +27,8 @@ int main(int ac, char **av)
 	}
 	free(line);
 	free(arg);
+	free_stack();
+	top = NULL;
 	line = NULL;
 	arg = NULL;
 	fclose(fd);

@@ -28,14 +28,14 @@ FILE *read_file(const char *filename)
  * Return: nothing
  */
 
-void free_stack(stack_t *top)
+void free_stack(void)
 {
 	stack_t *temp;
 
-	while (top)
+	while (args.head)
 	{
-		temp = top;
-		top = (top)->prev;
+		temp = args.head;
+		args.head = args.head->next;
 		free(temp);
 	}
 }
