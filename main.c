@@ -2,13 +2,15 @@
 
 int main(int ac, char **av)
 {
-	stack_t *top;
+	stack_t *top = NULL;
 	unsigned int line_num = 1;
 	char *line = NULL, *arg = NULL;
 	size_t len = 0;
 	int i;
+	void (*op_func)(stack_t **top, unsigned int line_num);
 	FILE *fd;
 	args.push = NULL;
+	args.head = NULL;
 
 	if (ac != 2)
 	{
@@ -17,30 +19,11 @@ int main(int ac, char **av)
 	}
 
 	fd = read_file(*av[1]);
-
-	top = NULL;
+	
 	while (getline(&line, &len, fd) != EOF)
 	{
 		arg = get_args(line);
-		for (i = 0; opcodes[i].opcode != NULL; i++)
-		{
-			if (strcmp(arg, opcodes[i].opcode) == 0)
-			{
-				opcodes[i].f(&top, line_num);
-				break;
-			}
-		}
-		if (opcodes[i].opcode == NULL && arg != NULL)
-		{
-			dprintf(STDERR_FILENO,
-				"L%d: unknown instruction %s\n",
-				line_num, arg);
-			free(line);
-			free(arg);
-			line = NULL;
-			arg = NULL;
-			exit(EXIT_FAILURE);
-		}
+		op_func = get_op_function(arg, line_num);
 	}
 	free(line);
 	free(arg);
