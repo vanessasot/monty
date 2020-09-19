@@ -17,7 +17,8 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	if (!new)
 	{
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
-		free_stack(*top);
+		free_stack();
+		free(new);
 		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
@@ -33,7 +34,7 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	{
 		dprintf(STDERR_FILENO, "L%d: usage: push integer\n",
 			line_num);
-		free_stack(*top);
+		free_stack();
 		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
@@ -42,6 +43,7 @@ void opcode_push(stack_t **top, unsigned int line_num)
 	{
 		new->prev = NULL;
 		*top = new;
+		args.head = top;
 	}
 	else
 	{
@@ -90,7 +92,7 @@ void opcode_pint(stack_t **top, unsigned int line_num)
 	{
 		dprintf(STDERR_FILENO, "L%d: can't pint, stack empty\n",
 			line_num);
-		free_stack(*top);
+		free_stack();
 		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
@@ -112,7 +114,7 @@ void opcode_pop(stack_t **top, unsigned int line_num)
 	{
 		dprintf(STDERR_FILENO, "L%d: can't pop an empty stack\n",
 			line_num);
-		free_stack(*top);
+		free_stack();
 		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
@@ -156,7 +158,7 @@ void opcode_swap(stack_t **top, unsigned int line_num)
 	{
 		dprintf(STDERR_FILENO, "L%d: can't swap, stack too short\n",
 			line_num);
-		free_stack(*top);
+		free_stack();
 		*top = NULL;
 		exit(EXIT_FAILURE);
 	}
