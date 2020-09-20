@@ -1,13 +1,14 @@
 #include "monty.h"
 
 /**
- * get_op_function - Select the function depending to the opcode.
- * @line_n: Line number of file.
+ * get_op - Select the function depending to the opcode.
+ * @s: string to check.
+ * @l: Line number.
  *
- * Return: 0 (success).
+ * Return: If success pointer to function, else EXIT_FAILURE.
  */
 
-void (*get_op_function(char *str, unsigned int line_num))(stack_t **top, unsigned int line_num)
+void (*get_op(char *s, unsigned int l))(stack_t **top, unsigned int line_num)
 {
 	instruction_t opcodes[] = {
 	    {"push", opcode_push},
@@ -18,17 +19,15 @@ void (*get_op_function(char *str, unsigned int line_num))(stack_t **top, unsigne
 	    {"add", opcode_add},
 	    {"nop", opcode_nop},
 	    {NULL, NULL}};
-	int index_op = 0;
 
-	while (opcodes[index_op].opcode)
-	{
-		if (strcmp(opcodes[index_op].opcode, str) == 0)
-		{
-			return (opcodes[index_op].f);
-		}
-		index_op++;
-	}
-	dprintf(STDERR_FILENO, "L%d: unknown instruction\n", line_num);
-	free_stack();
+		size_t i_op;
+
+	for (i_op = 0; opcodes[i_op].opcode; i_op++)
+		if (strcmp(opcodes[i_op].opcode, s) == 0)
+			return (opcodes[i_op].f);
+
+	free_stack(args.top);
+	dprintf(STDERR_FILENO, "L%d: unknown instruction %s\n", l, s);
+
 	exit(EXIT_FAILURE);
 }
