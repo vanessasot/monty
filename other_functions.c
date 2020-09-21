@@ -27,7 +27,7 @@ void opcode_sub(stack_t **top, unsigned int line_num)
 	}
 	else
 	{
-		dprintf(STDERR_FILENO, "L%d: can't add, stack too short\n",
+		dprintf(STDERR_FILENO, "L%d: can't sub, stack too short\n",
 			line_num);
 		free_stack(args.top);
 
