@@ -77,5 +77,9 @@ FILE *read_file(char *file_name);
 void free_stack(stack_t *head);
 int is_int(char *str);
 char *get_args(char *str);
+void opcode_sub(stack_t **top, unsigned int line_num);
+void opcode_div(stack_t **top, unsigned int line_num);
+void opcode_mul(stack_t **top, unsigned int line_num);
+void opcode_mod(stack_t **top, unsigned int line_num);
 
 #endif /* MONTY_H */
