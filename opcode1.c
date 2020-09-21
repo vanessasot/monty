@@ -60,7 +60,7 @@ void opcode_push(stack_t **top, unsigned int line_num)
 void opcode_pall(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp = *top;
-	(void)line_num;
+	(void) line_num;
 
 	while (temp)
 	{
