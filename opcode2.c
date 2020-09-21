@@ -47,5 +47,4 @@ void opcode_nop(stack_t **top, unsigned int line_num)
 {
 	(void)*top;
 	(void)line_num;
-	printf("NOP\n");
 }
