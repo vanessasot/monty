@@ -21,18 +21,20 @@ void opcode_push(stack_t **top, unsigned int line_num)
 		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
 	new->next = NULL;
 	if (is_int(args.push))
-	{
 		new->n = atoi(args.push);
-	}
 	else
 	{
 		free(new);
 		new = NULL;
 		free_stack(args.top);
+<<<<<<< HEAD
 		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", line_num);
+=======
+		dprintf(STDERR_FILENO, "L%d: usage: push integer\n",
+			line_num);
+>>>>>>> origin/master
 		exit(EXIT_FAILURE);
 	}
 
@@ -83,9 +85,7 @@ void opcode_pall(stack_t **top, unsigned int line_num)
 void opcode_pint(stack_t **top, unsigned int line_num)
 {
 	if (*top)
-	{
 		dprintf(STDOUT_FILENO, "%d\n", (*top)->n);
-	}
 	else
 	{
 		free_stack(args.top);

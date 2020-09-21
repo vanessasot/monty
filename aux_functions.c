@@ -1,10 +1,10 @@
 #include "monty.h"
 
 /**
- *read_file - open file
- *@file_name: file name
+ * read_file - open file.
+ * @file_name: file name.
  *
- *Return: on success file descriptor, else EXIT_FAILURE
+ * Return: on success file descriptor, else EXIT_FAILURE.
  */
 
 FILE *read_file(char *file_name)

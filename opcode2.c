@@ -14,6 +14,9 @@ void opcode_add(stack_t **top, unsigned int line_num)
 {
 	stack_t *temp = *top;
 
+	(void) *top;
+	(void) line_num;
+
 	if (*top && (*top)->prev)
 	{
 		(*top)->prev->n += (*top)->n;
@@ -41,6 +44,11 @@ void opcode_add(stack_t **top, unsigned int line_num)
 
 void opcode_nop(stack_t **top, unsigned int line_num)
 {
+<<<<<<< HEAD
 	(void) *top;
 	(void) line_num;
+=======
+	(void)*top;
+	(void)line_num;
+>>>>>>> origin/master
 }

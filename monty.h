@@ -36,7 +36,7 @@ typedef struct stack_s
  * @push: token to push into the stack
  * @top: last node in the stack
  *
- * Description: shareable arguments of the stack
+ * Description: Shareable arguments of the stack
  * for functions to use
  */
 typedef struct args_s
@@ -46,6 +46,7 @@ typedef struct args_s
 } args_t;
 
 extern args_t args;
+args_t args;
 
 /**
  * struct instruction_s - opcode and its function
