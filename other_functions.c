@@ -52,11 +52,13 @@ void opcode_div(stack_t **top, unsigned int line_num)
 	(void) *top;
 	(void) line_num;
 
-	if ((*top)->n == 0)
+	/**
+	 * if ((*top)->n == 0)
 	{
 		dprintf(STDERR_FILENO, "L%d: division by zero\n", line_num);
 		free_stack(args.top);
 	}
+	*/
 	if (*top && (*top)->prev)
 	{
 		(*top)->prev->n /= (*top)->n;
@@ -127,11 +129,13 @@ void opcode_mod(stack_t **top, unsigned int line_num)
 	(void) *top;
 	(void) line_num;
 
-	if ((*top)->n == 0)
+	/**
+	 * if ((*top)->n == 0)
 	{
 		dprintf(STDERR_FILENO, "L%d: division by zero\n", line_num);
 		free_stack(args.top);
 	}
+	*/
 	if (*top && (*top)->prev)
 	{
 		(*top)->prev->n %= (*top)->n;
