@@ -110,6 +110,7 @@ void opcode_pop(stack_t **top, unsigned int line_num)
 			line_num);
 		exit(EXIT_FAILURE);
 	}
+
 	if ((*top)->prev)
 	{
 		*top = (*top)->prev;
@@ -142,7 +143,8 @@ void opcode_swap(stack_t **top, unsigned int line_num)
 		temp = (*top)->prev;
 		(*top)->next = temp;
 		(*top)->prev = temp->prev;
-		temp->prev->next = *top;
+		if (temp->prev->next)
+			temp->prev->next = *top;
 		temp->prev = *top;
 		temp->next = NULL;
 		*top = temp;
