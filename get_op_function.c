@@ -20,11 +20,7 @@ void (*get_op(char *s, unsigned int l))(stack_t **top, unsigned int line_num)
 	    {"nop", opcode_nop},
 	    {NULL, NULL}};
 
-<<<<<<< HEAD
-	size_t i_op;
-=======
 		size_t i_op;
->>>>>>> origin/master
 
 	for (i_op = 0; opcodes[i_op].opcode; i_op++)
 		if (strcmp(opcodes[i_op].opcode, s) == 0)
@@ -32,9 +28,5 @@ void (*get_op(char *s, unsigned int l))(stack_t **top, unsigned int line_num)
 
 	free_stack(args.top);
 	dprintf(STDERR_FILENO, "L%d: unknown instruction %s\n", l, s);
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 	exit(EXIT_FAILURE);
 }

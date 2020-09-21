@@ -43,10 +43,6 @@ int main(int ac, char **av)
 	free(line);
 	if (args.top)
 		free_stack(args.top);
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 	line = NULL;
 	arg = NULL;
 	fclose(fd);
