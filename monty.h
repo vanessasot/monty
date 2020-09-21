@@ -32,9 +32,9 @@ typedef struct stack_s
 } stack_t;
 
 /**
- * struct args_s - singly linked list
- * @push: pointer that stores what the user writes
- * @top: pointer that begin of the list
+ * struct args_s - shareable arguments of the stack
+ * @push: token to push into the stack
+ * @top: last node in the stack
  *
  * Description: Shareable arguments of the stack
  * for functions to use

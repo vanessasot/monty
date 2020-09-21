@@ -110,6 +110,7 @@ void opcode_pop(stack_t **top, unsigned int line_num)
 			line_num);
 		exit(EXIT_FAILURE);
 	}
+
 	if ((*top)->prev)
 	{
 		*top = (*top)->prev;
