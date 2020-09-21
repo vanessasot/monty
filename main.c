@@ -33,7 +33,7 @@ int main(int ac, char **av)
 	while (getline(&line, &len, fd) != EOF)
 	{
 		arg = get_args(line);
-		if (arg)
+		if (arg && arg[0] != '#')
 		{
 			op_func = get_op(arg, line_num);
 			op_func(&top, line_num);
