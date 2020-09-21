@@ -1,21 +1,21 @@
 #include "monty.h"
 
 /**
- *read_file - Read text from a file.
- *@filename: Name of the file.
+ *read_file - open file.
+ *@filename: file name.
  *
- *Return: Number of letters.
+ *Return: on success file descriptor, else EXIT_FAILURE.
  */
 
-FILE *read_file(const char *filename)
+FILE *read_file(char *file_name)
 {
 	FILE *fd;
 
-	fd = fopen(filename, "r+");
+	fd = fopen(file_name, "r");
 	if (fd == NULL)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't open file %s\n",
-			filename);
+			file_name);
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
@@ -23,21 +23,22 @@ FILE *read_file(const char *filename)
 
 /**
  * free_stack - frees the stack
- * @top: last node in the stack
+ * @top: first node in the stack
  *
  * Return: nothing
  */
 
-void free_stack(void)
+void free_stack(stack_t *top)
 {
 	stack_t *temp;
 
-	while (args.head)
+	while (top)
 	{
-		temp = args.head;
-		args.head = args.head->next;
+		temp = top;
+		top = top->prev;
 		free(temp);
 	}
+	args.top = NULL;
 }
 
 /**
@@ -86,7 +87,8 @@ char *get_args(char *str)
 	char *op;
 
 	op = strtok(str, " \t\n");
-	if (strcmp(op, "push") == 0)
-		args.push = strtok(NULL, " \t\n");
+	if (op)
+		if (strcmp(op, "push") == 0)
+			args.push = strtok(NULL, " \t\n");
 	return (op);
 }
