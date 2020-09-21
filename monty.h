@@ -34,6 +34,7 @@ typedef struct stack_s
 /**
  * struct args_s - singly linked list
  * @push: pointer that stores what the user writes
+ * @top: pointer that begin of the list
  *
  * Description: Shareable arguments of the stack
  * for functions to use
