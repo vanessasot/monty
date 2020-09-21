@@ -143,7 +143,7 @@ void opcode_swap(stack_t **top, unsigned int line_num)
 		temp = (*top)->prev;
 		(*top)->next = temp;
 		(*top)->prev = temp->prev;
-		if (temp->prev->next)
+		if (temp->prev)
 			temp->prev->next = *top;
 		temp->prev = *top;
 		temp->next = NULL;
