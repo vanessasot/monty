@@ -6,7 +6,7 @@ args_t args;
  * main - initializes monty bytecode interpreter
  * @ac: Number of arguments given to interpreter
  * @av: arguments given to interpreter
- * 
+ *
  * Return: on success EXIT_SUCCESS
  */
 
@@ -43,7 +43,7 @@ int main(int ac, char **av)
 	free(line);
 	if (args.top)
 		free_stack(args.top);
-	
+
 	line = NULL;
 	arg = NULL;
 	fclose(fd);
