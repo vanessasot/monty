@@ -11,7 +11,6 @@
 void opcode_push(stack_t **top, unsigned int line_num)
 {
 	stack_t *new;
-	int n;
 
 	new = malloc(sizeof(stack_t));
 	if (!new)
