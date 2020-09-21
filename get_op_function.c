@@ -18,6 +18,7 @@ void (*get_op(char *s, unsigned int l))(stack_t **top, unsigned int line_num)
 	    {"swap", opcode_swap},
 	    {"add", opcode_add},
 		{"sub", opcode_sub},
+		{"div", opcode_div},
 	    {"nop", opcode_nop},
 	    {NULL, NULL}};
 
