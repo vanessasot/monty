@@ -12,7 +12,7 @@
 
 #define BUF_SIZE 2048
 
-/* Definitions */
+/* Structs */
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -77,6 +77,9 @@ void opcode_div(stack_t **top, unsigned int line_num);
 void opcode_mul(stack_t **top, unsigned int line_num);
 void opcode_mod(stack_t **top, unsigned int line_num);
 void opcode_pchar(stack_t **top, unsigned int line_num);
+void opcode_pstr(stack_t **top, unsigned int line_num);
+void opcode_rotl(stack_t **top, unsigned int line_num);
+void opcode_rotr(stack_t **top, unsigned int line_num);
 
 void (*get_op(char *s, unsigned int l))(stack_t **top, unsigned int line_num);
 FILE *read_file(char *file_name);

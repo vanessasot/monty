@@ -23,6 +23,9 @@ void (*get_op(char *s, unsigned int l))(stack_t **top, unsigned int line_num)
 	    {"mul", opcode_mul},
 	    {"mod", opcode_mod},
 	    {"pchar", opcode_pchar},
+	    {"pstr", opcode_pstr},
+	    {"rotl", opcode_rotl},
+	    {"rotr", opcode_rotr},
 	    {NULL, NULL}
 	};
 
